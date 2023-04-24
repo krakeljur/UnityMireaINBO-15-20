@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
-/// \brief —крипт, отвечающий за генерацию карты
-/// **предварительно создаЄм n заготовок с расстоновкой преп€тствий, а после в методе Update(), вызываем их в рандомном пор€дке, провер€€, есть ли на уже на карте такой фрагмент** 
-/// **после своей отыгровки фрагмент удал€етс€**
+/// \brief Generate of PLAYMAP
+/// **Creating an array of blanks with obstacles and the subsequent log of their spawning and removal** 
+/// 
 /// \code
 /// public class MapGenerator : MonoBehaviour
 ///{

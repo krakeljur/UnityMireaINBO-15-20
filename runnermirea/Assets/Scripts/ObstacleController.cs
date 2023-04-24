@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// \brief Скрипт, отвечающий за проигрыш персонажа
-/// **Скрипт проверяет препятствие на прикосновение к персонажу. Если препятствие, коснулось персонажа, то игра заканчивается**
+/// \brief CheckLoseGame
+/// **The script checks the obstacle for touching the character. If the obstacle touches the character, then the game ends**
 /// \code
 /// public class ObstacleController : MonoBehaviour
 ///{

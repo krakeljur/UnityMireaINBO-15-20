@@ -4,8 +4,8 @@ using UnityEngine;
 
 
 /// <summary>
-/// \brief Скрипт, отвечающий за генерацию фоновых объектов
-/// **Скрипт отвечает за генерацию, передвижение и последующее удаление объектов среды (дома, дорога)**
+/// \brief MapGenerate(background)
+/// **The script is responsible for the generation, movement and subsequent removal of environmental objects (houses, road)**
 /// \code
 /// public class RoadGenerator : MonoBehaviour
 ///{

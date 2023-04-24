@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 /// <summary>
-/// \brief Скрипт, отвечающий за проведение покупки
-/// **Скрипт отвечает за логику проведения покупки чего-либо в игре**
+/// \brief SHOPScript
+/// **The script is responsible for the logic of the purchase of something in the game**
 /// \code
 /// public class Shop : MonoBehaviour
 ///{

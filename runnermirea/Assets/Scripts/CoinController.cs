@@ -6,10 +6,10 @@ using UnityEngine.UI;
 
 
 /// <summary>
-/// \brief Ётот скрипт отвеч€ает за жизнь так называемой монетки.
+/// \brief LifeCoin.
 /// 
 /// 
-/// **»тоговый скрипт отвечающий за жизнь монетки(вращение, удаление со сцены после сбора)**
+/// **Rotation, Destroy and Collect of coin**
 /// \code
 ///  public class CoinController : MonoBehaviour
 ///{

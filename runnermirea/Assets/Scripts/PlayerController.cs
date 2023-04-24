@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// \brief Скрипт, отвечающий за жизнь игрового персонажа
+/// \brief LifePlayer
 /// 
-/// **Скрипт отвечает за сбор монет, за передвижение персонажа, за подсчёт и сохранение рекордного времени забега**
+/// **The script is responsible for collecting coins, for moving the character, for calculating and maintaining a record run time**
 /// \code
 /// public class PlayerController : MonoBehaviour
 ///{
