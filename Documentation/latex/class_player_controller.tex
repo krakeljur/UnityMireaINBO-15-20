@@ -1,0 +1,200 @@
+\hypertarget{class_player_controller}{}\doxysection{Player\+Controller Class Reference}
+\label{class_player_controller}\index{PlayerController@{PlayerController}}
+
+
+Life\+Player.  
+
+
+Inheritance diagram for Player\+Controller\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_player_controller}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_player_controller_a715c06dfe52ab84cfc5a6c21cfd3c12e}\label{class_player_controller_a715c06dfe52ab84cfc5a6c21cfd3c12e}} 
+void {\bfseries Start\+Game} ()
+\item 
+\mbox{\Hypertarget{class_player_controller_a84b00cb57825df6dad823a09aec7b01f}\label{class_player_controller_a84b00cb57825df6dad823a09aec7b01f}} 
+void {\bfseries Reset\+Game} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_player_controller_a0d0c7166cb0aa9bbb022a26ce0d990e0}\label{class_player_controller_a0d0c7166cb0aa9bbb022a26ce0d990e0}} 
+Text {\bfseries coin\+Count}
+\item 
+\mbox{\Hypertarget{class_player_controller_a9094aa6f436d0d7735392897ad7c63b1}\label{class_player_controller_a9094aa6f436d0d7735392897ad7c63b1}} 
+bool {\bfseries is\+Jump} = false
+\item 
+\mbox{\Hypertarget{class_player_controller_aee77651e7b9669db7b24af5d2cfc09fb}\label{class_player_controller_aee77651e7b9669db7b24af5d2cfc09fb}} 
+float {\bfseries time\+Start} = 0
+\item 
+\mbox{\Hypertarget{class_player_controller_ac679467163e3ef2832137dbdecf2c3db}\label{class_player_controller_ac679467163e3ef2832137dbdecf2c3db}} 
+Text {\bfseries timer\+Text}
+\item 
+\mbox{\Hypertarget{class_player_controller_af0e2bc13fff0c09b94785263d3d8b4ad}\label{class_player_controller_af0e2bc13fff0c09b94785263d3d8b4ad}} 
+Text {\bfseries highscoretext}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Life\+Player. 
+
+{\bfseries{The script is responsible for collecting coins, for moving the character, for calculating and maintaining a record run time}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_player_controller}{PlayerController}}\ :\ MonoBehaviour}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{public}\ Text\ coinCount;}
+\DoxyCodeLine{\textcolor{keywordtype}{float}\ laneOffset;}
+\DoxyCodeLine{\textcolor{keywordtype}{float}\ laneChangeSpeed\ =\ 15;}
+\DoxyCodeLine{Rigidbody\ rb;}
+\DoxyCodeLine{Vector3\ targetVelocity;}
+\DoxyCodeLine{\textcolor{keywordtype}{float}\ pointStart;}
+\DoxyCodeLine{\textcolor{keywordtype}{float}\ pointFinish;}
+\DoxyCodeLine{\textcolor{keyword}{public}\ \textcolor{keywordtype}{bool}\ isJump\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ isMoving\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{Coroutine\ movingCoroutine;}
+\DoxyCodeLine{\textcolor{keywordtype}{float}\ jumpPower\ =\ 15;}
+\DoxyCodeLine{\textcolor{keywordtype}{float}\ jumpGravity\ =\ -\/40;}
+\DoxyCodeLine{\textcolor{keywordtype}{float}\ realGravity\ =\ -\/9.8f;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{public}\ \textcolor{keywordtype}{float}\ timeStart\ =\ 0;}
+\DoxyCodeLine{\textcolor{keyword}{public}\ Text\ timerText;}
+\DoxyCodeLine{\textcolor{keyword}{public}\ Text\ highscoretext;}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ highscore;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ timerRunning\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ Awake()\ \textcolor{comment}{//Вывод\ стартовых значений\ интерфейса (время,\ рекордное время\ и количество монет на балансе)}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ highscoretext.text\ =\ PlayerPrefs.GetFloat(\textcolor{stringliteral}{"{}timerText"{}}).ToString();}
+\DoxyCodeLine{\ \ \ \ timerText.text\ =\ timeStart.ToString();}
+\DoxyCodeLine{\ \ \ \ coinCount.text\ =\ PlayerPrefs.GetInt(\textcolor{stringliteral}{"{}coins"{}}).ToString();}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ Start()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ laneOffset\ =\ \mbox{\hyperlink{class_map_generator}{MapGenerator}}.instance.laneOffset;}
+\DoxyCodeLine{\ \ \ \ rb\ =\ GetComponent<Rigidbody>();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ Update()\ \textcolor{comment}{//Вызов\ передвижения\ и подсчёт рекордного времени}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (Input.GetKeyDown(KeyCode.A)\ \&\&\ pointFinish\ >\ -\/laneOffset)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ MoveHorizontal(-\/laneChangeSpeed);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (Input.GetKeyDown(KeyCode.D)\ \&\&\ pointFinish\ <\ laneOffset)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ MoveHorizontal(laneChangeSpeed);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (Input.GetKeyDown(KeyCode.W)\ \&\&\ isJump\ ==\ \textcolor{keyword}{false})}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Jump();}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (timerRunning\ ==\ \textcolor{keyword}{true})}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ timeStart\ +=\ Time.deltaTime;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ timerText.text\ =\ Mathf.Round(timeStart).ToString();}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ highscoretext.text\ =\ \textcolor{stringliteral}{"{}Рекорд :\ "{}}\ +\ PlayerPrefs.GetFloat(\textcolor{stringliteral}{"{}timerText"{}}).ToString();}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (PlayerPrefs.GetFloat(\textcolor{stringliteral}{"{}timerText"{}})\ <=\ timeStart)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ PlayerPrefs.SetFloat(\textcolor{stringliteral}{"{}timerText"{}},\ timeStart);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ highscoretext.text\ =\ \textcolor{stringliteral}{"{}Рекорд :\ "{}}\ +\ PlayerPrefs.GetFloat(\textcolor{stringliteral}{"{}timerText"{}}).ToString();}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ Jump()\ \textcolor{comment}{//логика\ прыжка}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ isJump\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\ \ \ \ rb.AddForce(Vector3.up\ *\ jumpPower,\ ForceMode.Impulse);}
+\DoxyCodeLine{\ \ \ \ Physics.gravity\ =\ \textcolor{keyword}{new}\ Vector3(0,\ jumpGravity,\ 0);}
+\DoxyCodeLine{\ \ \ \ StartCoroutine(StopJumpCoroutine());}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{IEnumerator\ StopJumpCoroutine()\ \textcolor{comment}{//логика\ конца прыжка}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{do}}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ yield\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ WaitForSeconds(0.02f);}
+\DoxyCodeLine{\ \ \ \ \}\ \textcolor{keywordflow}{while}\ (rb.velocity.y\ !=\ 0);}
+\DoxyCodeLine{\ \ \ \ isJump\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\ \ \ \ Physics.gravity\ =\ \textcolor{keyword}{new}\ Vector3(0,\ realGravity,\ 0);}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ MoveHorizontal(\textcolor{keywordtype}{float}\ speed)\ \textcolor{comment}{//логика\ передвижения}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ pointStart\ =\ pointFinish;}
+\DoxyCodeLine{\ \ \ \ pointFinish\ +=\ Mathf.Sign(speed)\ *\ laneOffset;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (isMoving)\ \{\ StopCoroutine(movingCoroutine);\ isMoving\ =\ \textcolor{keyword}{false};\ \}}
+\DoxyCodeLine{\ \ \ \ movingCoroutine\ =\ StartCoroutine(MoveCoroutine(speed));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{IEnumerator\ MoveCoroutine(\textcolor{keywordtype}{float}\ VectorX)}
+\DoxyCodeLine{\{\ \textcolor{comment}{//логика\ передвижения}}
+\DoxyCodeLine{\ \ \ \ isMoving\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{while}\ (Mathf.Abs(pointStart\ -\/\ transform.position.x)\ <\ laneOffset)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ yield\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ WaitForFixedUpdate();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ rb.velocity\ =\ \textcolor{keyword}{new}\ Vector3(VectorX,\ rb.velocity.y,\ 0);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ x\ =\ Mathf.Clamp(transform.position.x,\ Mathf.Min(pointStart,\ pointFinish),\ Mathf.Max(pointStart,\ pointFinish));}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ transform.position\ =\ \textcolor{keyword}{new}\ Vector3(x,\ transform.position.y,\ transform.position.z);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ rb.velocity\ =\ Vector3.zero;}
+\DoxyCodeLine{\ \ \ \ transform.position\ =\ \textcolor{keyword}{new}\ Vector3(pointFinish,\ transform.position.y,\ transform.position.z);}
+\DoxyCodeLine{\ \ \ \ isMoving\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ StartGame()\ \textcolor{comment}{//Метод,\ отвечающий за старт\ забега}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ timeStart\ =\ 0;}
+\DoxyCodeLine{\ \ \ \ timerRunning\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{class_road_generator}{RoadGenerator}}.instance.StartLevel();}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ ResetGame()\ \textcolor{comment}{//Метод,\ отвечающий за конец забега}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ timerRunning\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{class_road_generator}{RoadGenerator}}.instance.ResetLevel();}
+\DoxyCodeLine{\ \ \ \ rb.velocity\ =\ Vector3.zero;}
+\DoxyCodeLine{\ \ \ \ pointStart\ =\ 0;}
+\DoxyCodeLine{\ \ \ \ pointFinish\ =\ 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{private}\ \textcolor{keywordtype}{void}\ OnTriggerEnter(Collider\ other)\ \textcolor{comment}{//Метод,\ проверяющий контакт\ персонажа с другими сущностямии и сопутствующая\ логика}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (other.gameObject.tag\ ==\ \textcolor{stringliteral}{"{}Lose"{}})\ \{\ ResetGame();\ \}\ \textcolor{comment}{//контакт\ с препятствием\ -\/\ конец игры}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (other.gameObject.tag\ ==\ \textcolor{stringliteral}{"{}Gold"{}})\ \textcolor{comment}{//контакт\ с монеткой\ -\/\ добавление единицы\ к балансу}}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ coins\ =\ PlayerPrefs.GetInt(\textcolor{stringliteral}{"{}coins"{}});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ PlayerPrefs.SetInt(\textcolor{stringliteral}{"{}coins"{}},\ coins\ +\ 1);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ coinCount.text\ =\ (coins\ +\ 1).ToString();}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Unity\+Mirea\+INBO-\/15-\/20/runnermirea/\+Assets/\+Scripts/Player\+Controller.\+cs\end{DoxyCompactItemize}

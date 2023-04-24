@@ -1,0 +1,37 @@
+\hypertarget{class_obstacle_controller}{}\doxysection{Obstacle\+Controller Class Reference}
+\label{class_obstacle_controller}\index{ObstacleController@{ObstacleController}}
+
+
+Check\+Lose\+Game {\bfseries{The script checks the obstacle for touching the character. If the obstacle touches the character, then the game ends}}  
+
+
+Inheritance diagram for Obstacle\+Controller\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_obstacle_controller}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Detailed Description}
+Check\+Lose\+Game {\bfseries{The script checks the obstacle for touching the character. If the obstacle touches the character, then the game ends}} 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_obstacle_controller}{ObstacleController}}\ :\ MonoBehaviour}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{void}\ OnTriggerEnter(Collider\ other)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (other.gameObject.tag\ ==\ \textcolor{stringliteral}{"{}Player"{}})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ other.gameObject.GetComponent<\mbox{\hyperlink{class_player_controller}{PlayerController}}>().ResetGame();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Unity\+Mirea\+INBO-\/15-\/20/runnermirea/\+Assets/\+Scripts/Obstacle\+Controller.\+cs\end{DoxyCompactItemize}

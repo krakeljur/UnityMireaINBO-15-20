@@ -1,0 +1,123 @@
+\hypertarget{class_road_generator}{}\doxysection{Road\+Generator Class Reference}
+\label{class_road_generator}\index{RoadGenerator@{RoadGenerator}}
+
+
+Map\+Generate(background) {\bfseries{The script is responsible for the generation, movement and subsequent removal of environmental objects (houses, road)}}  
+
+
+Inheritance diagram for Road\+Generator\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_road_generator}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_road_generator_a14d79ffa863d07da1ffdbf08d7069243}\label{class_road_generator_a14d79ffa863d07da1ffdbf08d7069243}} 
+void {\bfseries Start\+Level} ()
+\item 
+\mbox{\Hypertarget{class_road_generator_a0de0d58fbfd68dada69a904dd08d4072}\label{class_road_generator_a0de0d58fbfd68dada69a904dd08d4072}} 
+void {\bfseries Reset\+Level} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_road_generator_ac152eb8d16d77ff7121fc7d984de2dc0}\label{class_road_generator_ac152eb8d16d77ff7121fc7d984de2dc0}} 
+Game\+Object {\bfseries Road\+Prefab}
+\item 
+\mbox{\Hypertarget{class_road_generator_a8b32af22521800f80b884b97ab9f1761}\label{class_road_generator_a8b32af22521800f80b884b97ab9f1761}} 
+float {\bfseries max\+Speed} = 10
+\item 
+\mbox{\Hypertarget{class_road_generator_a6f277ef5fccec98e11606d50d0b29479}\label{class_road_generator_a6f277ef5fccec98e11606d50d0b29479}} 
+float {\bfseries speed} = 0
+\item 
+\mbox{\Hypertarget{class_road_generator_abab0007bee0e77d1e85bf2a5fcb868a5}\label{class_road_generator_abab0007bee0e77d1e85bf2a5fcb868a5}} 
+int {\bfseries max\+Road\+Count} = 5
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_road_generator_ac46455466241c3da91a65172e16e5fa9}\label{class_road_generator_ac46455466241c3da91a65172e16e5fa9}} 
+static \mbox{\hyperlink{class_road_generator}{Road\+Generator}} {\bfseries instance}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Map\+Generate(background) {\bfseries{The script is responsible for the generation, movement and subsequent removal of environmental objects (houses, road)}} 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_road_generator}{RoadGenerator}}\ :\ MonoBehaviour}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{public}\ GameObject\ RoadPrefab;}
+\DoxyCodeLine{\textcolor{keyword}{private}\ List<GameObject>\ roads\ =\ \textcolor{keyword}{new}\ List<GameObject>();}
+\DoxyCodeLine{\textcolor{keyword}{public}\ \textcolor{keywordtype}{float}\ maxSpeed\ =\ 10;}
+\DoxyCodeLine{\textcolor{keyword}{public}\ \textcolor{keywordtype}{float}\ speed\ =\ 0;}
+\DoxyCodeLine{\textcolor{keyword}{public}\ \textcolor{keywordtype}{int}\ maxRoadCount\ =\ 5;}
+\DoxyCodeLine{\textcolor{keyword}{public}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_road_generator}{RoadGenerator}}\ instance;}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ Awake()\ \{\ instance\ =\ \textcolor{keyword}{this};\ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ Start()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ ResetLevel();}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ Update()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (speed\ ==\ 0)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{foreach}\ (GameObject\ road\ \textcolor{keywordflow}{in}\ roads)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ road.transform.position\ -\/=\ \textcolor{keyword}{new}\ Vector3(0,\ 0,\ speed\ *\ Time.deltaTime);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (roads[0].transform.position.z\ <\ -\/30)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Destroy(roads[0]);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ roads.RemoveAt(0);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ CreateNextRoad();}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{private}\ \textcolor{keywordtype}{void}\ CreateNextRoad()\ \textcolor{comment}{//\ ѕровер€ем,\ сколько объектов среды\ уже существует,\ если недостаточно, то добавл€ем новый и удал€ем последний}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ Vector3\ pos\ =\ Vector3.zero;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (roads.Count\ >\ 0)\ \{\ pos\ =\ roads[roads.Count\ -\/\ 1].transform.position\ +\ \textcolor{keyword}{new}\ Vector3(0,\ 0,\ 20);\ \}}
+\DoxyCodeLine{\ \ \ \ GameObject\ go\ =\ Instantiate(RoadPrefab,\ pos,\ Quaternion.identity);}
+\DoxyCodeLine{\ \ \ \ go.transform.SetParent(transform);}
+\DoxyCodeLine{\ \ \ \ roads.Add(go);}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ StartLevel()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ speed\ =\ maxSpeed;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ ResetLevel()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ speed\ =\ 0;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{while}\ (roads.Count\ >\ 0)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Destroy(roads[0]);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ roads.RemoveAt(0);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ maxRoadCount;\ i++)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ CreateNextRoad();}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{class_map_generator}{MapGenerator}}.instance.ResetMaps();}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Unity\+Mirea\+INBO-\/15-\/20/runnermirea/\+Assets/\+Scripts/Road\+Generator.\+cs\end{DoxyCompactItemize}

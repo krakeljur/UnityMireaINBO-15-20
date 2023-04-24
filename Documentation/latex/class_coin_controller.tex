@@ -1,0 +1,51 @@
+\hypertarget{class_coin_controller}{}\doxysection{Coin\+Controller Class Reference}
+\label{class_coin_controller}\index{CoinController@{CoinController}}
+
+
+Life\+Coin.  
+
+
+Inheritance diagram for Coin\+Controller\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_coin_controller}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Detailed Description}
+Life\+Coin. 
+
+{\bfseries{Rotation, Destroy and Collect of coin}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_coin_controller}{CoinController}}\ :\ MonoBehaviour}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{float}\ rotationSpeed\ =\ 100;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}\ Start()}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ rotationSpeed\ +=\ Random.Range(0,\ rotationSpeed\ /\ 4.0f);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}\ Update()}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ transform.Rotate(0,\ rotationSpeed\ *\ Time.deltaTime,\ 0);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{private}\ \textcolor{keywordtype}{void}\ OnTriggerEnter(Collider\ other)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (other.gameObject.tag\ ==\ \textcolor{stringliteral}{"{}Player"{}})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ transform.gameObject.SetActive(\textcolor{keyword}{false});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Unity\+Mirea\+INBO-\/15-\/20/runnermirea/\+Assets/\+Scripts/Coin\+Controller.\+cs\end{DoxyCompactItemize}

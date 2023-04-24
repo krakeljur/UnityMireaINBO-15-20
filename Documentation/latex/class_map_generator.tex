@@ -1,0 +1,317 @@
+\hypertarget{class_map_generator}{}\doxysection{Map\+Generator Class Reference}
+\label{class_map_generator}\index{MapGenerator@{MapGenerator}}
+
+
+Generate of PLAYMAP {\bfseries{Creating an array of blanks with obstacles and the subsequent log of their spawning and removal}}  
+
+
+Inheritance diagram for Map\+Generator\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_map_generator}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_map_generator_a20c5e56fd1fd221d47503c9c89ef1272}\label{class_map_generator_a20c5e56fd1fd221d47503c9c89ef1272}} 
+void {\bfseries Reset\+Maps} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_map_generator_a3f7b3147f53964d3ac70ef22ce1f1b16}\label{class_map_generator_a3f7b3147f53964d3ac70ef22ce1f1b16}} 
+float {\bfseries lane\+Offset} = 2.\+5f
+\item 
+\mbox{\Hypertarget{class_map_generator_a31b53a6ca9be3e16356b3e4162fdc386}\label{class_map_generator_a31b53a6ca9be3e16356b3e4162fdc386}} 
+Game\+Object {\bfseries Obstacle\+Top\+Prefab}
+\item 
+\mbox{\Hypertarget{class_map_generator_a17b10f07960cff6c1f405f8348978d30}\label{class_map_generator_a17b10f07960cff6c1f405f8348978d30}} 
+Game\+Object {\bfseries Obstacle\+Bottom\+Prefab}
+\item 
+\mbox{\Hypertarget{class_map_generator_afc1165c826f4303b6dee0cec09898886}\label{class_map_generator_afc1165c826f4303b6dee0cec09898886}} 
+Game\+Object {\bfseries Obstacle\+Full\+Prefab}
+\item 
+\mbox{\Hypertarget{class_map_generator_a861f3e4180bfe15b044e42c64e92243c}\label{class_map_generator_a861f3e4180bfe15b044e42c64e92243c}} 
+Game\+Object {\bfseries Coin\+Prefab}
+\item 
+\mbox{\Hypertarget{class_map_generator_abefde8d9f2229383d6fc6f2ef0445df8}\label{class_map_generator_abefde8d9f2229383d6fc6f2ef0445df8}} 
+List$<$ Game\+Object $>$ {\bfseries maps} = new List$<$Game\+Object$>$()
+\item 
+\mbox{\Hypertarget{class_map_generator_a889cc4cf3312cb0b64e4fc74a06d1930}\label{class_map_generator_a889cc4cf3312cb0b64e4fc74a06d1930}} 
+List$<$ Game\+Object $>$ {\bfseries active\+Maps} = new List$<$Game\+Object$>$()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_map_generator_a5a96ef2d27b574af09fe6579e3745bf1}\label{class_map_generator_a5a96ef2d27b574af09fe6579e3745bf1}} 
+static \mbox{\hyperlink{class_map_generator}{Map\+Generator}} {\bfseries instance}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Generate of PLAYMAP {\bfseries{Creating an array of blanks with obstacles and the subsequent log of their spawning and removal}} 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_map_generator}{MapGenerator}}\ :\ MonoBehaviour}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ itemSpace\ =\ 15;}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ itemCountInMap\ =\ 5;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{enum}\ TrackPos\ \{\ Left\ =\ -\/1,\ Center\ =\ 0,\ Right\ =\ 1\ \};}
+\DoxyCodeLine{\textcolor{keyword}{enum}\ CoinsStyle\ \{\ Line,\ Jump\ \};}
+\DoxyCodeLine{\textcolor{keyword}{public}\ \textcolor{keywordtype}{float}\ laneOffset\ =\ 2.5f;}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ mapSize;}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ coinsCountInItem\ =\ 10;}
+\DoxyCodeLine{\textcolor{keywordtype}{float}\ coinsHeight\ =\ 0.5f;}
+\DoxyCodeLine{\textcolor{keyword}{public}\ GameObject\ ObstacleTopPrefab;}
+\DoxyCodeLine{\textcolor{keyword}{public}\ GameObject\ ObstacleBottomPrefab;}
+\DoxyCodeLine{\textcolor{keyword}{public}\ GameObject\ ObstacleFullPrefab;}
+\DoxyCodeLine{\textcolor{keyword}{public}\ GameObject\ CoinPrefab;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{public}\ List<GameObject>\ maps\ =\ \textcolor{keyword}{new}\ List<GameObject>();}
+\DoxyCodeLine{\textcolor{keyword}{public}\ List<GameObject>\ activeMaps\ =\ \textcolor{keyword}{new}\ List<GameObject>();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{static}\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_map_generator}{MapGenerator}}\ instance;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }MapItem}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ SetValues(GameObject\ obstacle,\ TrackPos\ trackPos,\ CoinsStyle\ coinStyle)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ this.obstacle\ =\ obstacle;\ this.trackPos\ =\ trackPos;\ this.coinsStyle\ =\ coinStyle;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{public}\ GameObject\ obstacle;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{public}\ TrackPos\ trackPos;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{public}\ CoinsStyle\ coinsStyle;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{private}\ \textcolor{keywordtype}{void}\ Awake()\ \textcolor{comment}{//первичное\ заполнение карты}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ instance\ =\ \textcolor{keyword}{this};}
+\DoxyCodeLine{\ \ \ \ mapSize\ =\ itemCountInMap\ *\ itemSpace;}
+\DoxyCodeLine{\ \ \ \ maps.Add(MakeMap1());}
+\DoxyCodeLine{\ \ \ \ maps.Add(MakeMap2());}
+\DoxyCodeLine{\ \ \ \ maps.Add(MakeMap3());}
+\DoxyCodeLine{\ \ \ \ maps.Add(MakeMap4());}
+\DoxyCodeLine{\ \ \ \ maps.Add(MakeMap5());}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{foreach}\ (GameObject\ map\ \textcolor{keywordflow}{in}\ maps)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ map.SetActive(\textcolor{keyword}{false});}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ Start()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ mapSize\ =\ itemCountInMap\ *\ itemSpace;}
+\DoxyCodeLine{\ \ \ \ maps.Add(MakeMap1());}
+\DoxyCodeLine{\ \ \ \ maps.Add(MakeMap2());}
+\DoxyCodeLine{\ \ \ \ maps.Add(MakeMap3());}
+\DoxyCodeLine{\ \ \ \ maps.Add(MakeMap4());}
+\DoxyCodeLine{\ \ \ \ maps.Add(MakeMap5());}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{foreach}\ (GameObject\ map\ \textcolor{keywordflow}{in}\ maps)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ map.SetActive(\textcolor{keyword}{false});}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ Update()\ \textcolor{comment}{//логика\ выставления\ фрагментов карты}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_road_generator}{RoadGenerator}}.instance.speed\ ==\ 0)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{foreach}\ (GameObject\ map\ \textcolor{keywordflow}{in}\ activeMaps)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ map.transform.position\ -\/=\ \textcolor{keyword}{new}\ Vector3(0,\ 0,\ \mbox{\hyperlink{class_road_generator}{RoadGenerator}}.instance.speed\ *\ Time.deltaTime);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (activeMaps[0].transform.position.z\ <\ -\/mapSize)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ RemoveFirstActiveMap();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ AddActiveMap();}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ RemoveFirstActiveMap()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ activeMaps[0].SetActive(\textcolor{keyword}{false});}
+\DoxyCodeLine{\ \ \ \ maps.Add(activeMaps[0]);}
+\DoxyCodeLine{\ \ \ \ activeMaps.RemoveAt(0);}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ ResetMaps()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{while}\ (activeMaps.Count\ >\ 0)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ RemoveFirstActiveMap();}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ AddActiveMap();}
+\DoxyCodeLine{\ \ \ \ AddActiveMap();}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ AddActiveMap()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ r\ =\ Random.Range(0,\ maps.Count);}
+\DoxyCodeLine{\ \ \ \ GameObject\ go\ =\ maps[r];}
+\DoxyCodeLine{\ \ \ \ go.SetActive(\textcolor{keyword}{true});}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{foreach}\ (Transform\ child\ \textcolor{keywordflow}{in}\ go.transform)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ child.gameObject.SetActive(\textcolor{keyword}{true});}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ go.transform.position\ =\ activeMaps.Count\ >\ 0\ ?}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ activeMaps[activeMaps.Count\ -\/\ 1].transform.position\ +\ Vector3.forward\ *\ mapSize\ :}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}\ Vector3(0,\ 0,\ 10);}
+\DoxyCodeLine{\ \ \ \ maps.RemoveAt(r);}
+\DoxyCodeLine{\ \ \ \ activeMaps.Add(go);}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{GameObject\ MakeMap1()}
+\DoxyCodeLine{\{\ \textcolor{comment}{//заготовка\ расстоновки}}
+\DoxyCodeLine{\ \ \ \ GameObject\ result\ =\ \textcolor{keyword}{new}\ GameObject(\textcolor{stringliteral}{"{}Map1"{}});}
+\DoxyCodeLine{\ \ \ \ result.transform.SetParent(transform);}
+\DoxyCodeLine{\ \ \ \ MapItem\ item\ =\ \textcolor{keyword}{new}\ MapItem();}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ itemCountInMap;\ i++)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ item.SetValues(\textcolor{keyword}{null},\ TrackPos.Center,\ CoinsStyle.Line);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ ==\ 2)\ \{\ item.SetValues(ObstacleFullPrefab,\ TrackPos.Left,\ CoinsStyle.Line);\ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (i\ ==\ 3)\ \{\ item.SetValues(ObstacleBottomPrefab,\ TrackPos.Right,\ CoinsStyle.Jump);\ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (i\ ==\ 4)\ \{\ item.SetValues(ObstacleBottomPrefab,\ TrackPos.Right,\ CoinsStyle.Jump);\ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Vector3\ obstaclePos\ =\ \textcolor{keyword}{new}\ Vector3((\textcolor{keywordtype}{int})item.trackPos\ *\ laneOffset,\ 0.7f,\ i\ *\ itemSpace);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ CreateCoins(item.coinsStyle,\ obstaclePos,\ result);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (item.obstacle\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ GameObject\ go\ =\ Instantiate(item.obstacle,\ obstaclePos,\ Quaternion.identity);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ go.transform.SetParent(result.transform);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{GameObject\ MakeMap2()\ \textcolor{comment}{//заготовка\ расстоновки}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ GameObject\ result\ =\ \textcolor{keyword}{new}\ GameObject(\textcolor{stringliteral}{"{}Map2"{}});}
+\DoxyCodeLine{\ \ \ \ result.transform.SetParent(transform);}
+\DoxyCodeLine{\ \ \ \ MapItem\ item\ =\ \textcolor{keyword}{new}\ MapItem();}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ itemCountInMap;\ i++)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ item.SetValues(\textcolor{keyword}{null},\ TrackPos.Center,\ CoinsStyle.Line);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ ==\ 2)\ \{\ item.SetValues(ObstacleFullPrefab,\ TrackPos.Center,\ CoinsStyle.Line);\ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (i\ ==\ 3)\ \{\ item.SetValues(ObstacleBottomPrefab,\ TrackPos.Right,\ CoinsStyle.Jump);\ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (i\ ==\ 4)\ \{\ item.SetValues(ObstacleBottomPrefab,\ TrackPos.Left,\ CoinsStyle.Jump);\ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Vector3\ obstaclePos\ =\ \textcolor{keyword}{new}\ Vector3((\textcolor{keywordtype}{int})item.trackPos\ *\ laneOffset,\ 0.7f,\ i\ *\ itemSpace);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ CreateCoins(item.coinsStyle,\ obstaclePos,\ result);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (item.obstacle\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ GameObject\ go\ =\ Instantiate(item.obstacle,\ obstaclePos,\ Quaternion.identity);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ go.transform.SetParent(result.transform);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{GameObject\ MakeMap3()\ \textcolor{comment}{//заготовка\ расстоновки}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ GameObject\ result\ =\ \textcolor{keyword}{new}\ GameObject(\textcolor{stringliteral}{"{}Map3"{}});}
+\DoxyCodeLine{\ \ \ \ result.transform.SetParent(transform);}
+\DoxyCodeLine{\ \ \ \ MapItem\ item\ =\ \textcolor{keyword}{new}\ MapItem();}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ itemCountInMap;\ i++)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ item.SetValues(\textcolor{keyword}{null},\ TrackPos.Center,\ CoinsStyle.Line);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ ==\ 2)\ \{\ item.SetValues(ObstacleFullPrefab,\ TrackPos.Right,\ CoinsStyle.Line);\ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (i\ ==\ 3)\ \{\ item.SetValues(ObstacleBottomPrefab,\ TrackPos.Center,\ CoinsStyle.Jump);\ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (i\ ==\ 4)\ \{\ item.SetValues(ObstacleBottomPrefab,\ TrackPos.Center,\ CoinsStyle.Jump);\ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Vector3\ obstaclePos\ =\ \textcolor{keyword}{new}\ Vector3((\textcolor{keywordtype}{int})item.trackPos\ *\ laneOffset,\ 0.7f,\ i\ *\ itemSpace);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ CreateCoins(item.coinsStyle,\ obstaclePos,\ result);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (item.obstacle\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ GameObject\ go\ =\ Instantiate(item.obstacle,\ obstaclePos,\ Quaternion.identity);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ go.transform.SetParent(result.transform);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{GameObject\ MakeMap4()\ \textcolor{comment}{//заготовка\ расстоновки}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ GameObject\ result\ =\ \textcolor{keyword}{new}\ GameObject(\textcolor{stringliteral}{"{}Map4"{}});}
+\DoxyCodeLine{\ \ \ \ result.transform.SetParent(transform);}
+\DoxyCodeLine{\ \ \ \ MapItem\ item\ =\ \textcolor{keyword}{new}\ MapItem();}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ itemCountInMap;\ i++)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ item.SetValues(\textcolor{keyword}{null},\ TrackPos.Center,\ CoinsStyle.Line);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ ==\ 2)\ \{\ item.SetValues(ObstacleFullPrefab,\ TrackPos.Left,\ CoinsStyle.Line);\ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (i\ ==\ 3)\ \{\ item.SetValues(ObstacleFullPrefab,\ TrackPos.Center,\ CoinsStyle.Jump);\ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (i\ ==\ 4)\ \{\ item.SetValues(ObstacleFullPrefab,\ TrackPos.Right,\ CoinsStyle.Jump);\ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Vector3\ obstaclePos\ =\ \textcolor{keyword}{new}\ Vector3((\textcolor{keywordtype}{int})item.trackPos\ *\ laneOffset,\ 0.7f,\ i\ *\ itemSpace);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ CreateCoins(item.coinsStyle,\ obstaclePos,\ result);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (item.obstacle\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ GameObject\ go\ =\ Instantiate(item.obstacle,\ obstaclePos,\ Quaternion.identity);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ go.transform.SetParent(result.transform);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{GameObject\ MakeMap5()\ \textcolor{comment}{//заготовка\ расстоновки}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ GameObject\ result\ =\ \textcolor{keyword}{new}\ GameObject(\textcolor{stringliteral}{"{}Map5"{}});}
+\DoxyCodeLine{\ \ \ \ result.transform.SetParent(transform);}
+\DoxyCodeLine{\ \ \ \ MapItem\ item\ =\ \textcolor{keyword}{new}\ MapItem();}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ itemCountInMap;\ i++)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ item.SetValues(\textcolor{keyword}{null},\ TrackPos.Center,\ CoinsStyle.Line);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ ==\ 2)\ \{\ item.SetValues(ObstacleBottomPrefab,\ TrackPos.Left,\ CoinsStyle.Line);\ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (i\ ==\ 3)\ \{\ item.SetValues(ObstacleBottomPrefab,\ TrackPos.Right,\ CoinsStyle.Jump);\ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (i\ ==\ 4)\ \{\ item.SetValues(ObstacleBottomPrefab,\ TrackPos.Center,\ CoinsStyle.Jump);\ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Vector3\ obstaclePos\ =\ \textcolor{keyword}{new}\ Vector3((\textcolor{keywordtype}{int})item.trackPos\ *\ laneOffset,\ 0.7f,\ i\ *\ itemSpace);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ CreateCoins(item.coinsStyle,\ obstaclePos,\ result);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (item.obstacle\ !=\ \textcolor{keyword}{null})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ GameObject\ go\ =\ Instantiate(item.obstacle,\ obstaclePos,\ Quaternion.identity);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ go.transform.SetParent(result.transform);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ CreateCoins(CoinsStyle\ style,\ Vector3\ pos,\ GameObject\ parentObject)}
+\DoxyCodeLine{\{\ \textcolor{comment}{//логика\ расстановки\ монеток}}
+\DoxyCodeLine{\ \ \ \ Vector3\ coinPos\ =\ Vector3.zero;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (style\ ==\ CoinsStyle.Line)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ -\/coinsCountInItem\ /\ 2;\ i\ <\ coinsCountInItem\ /\ 2;\ i++)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ coinPos.y\ =\ coinsHeight;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ coinPos.z\ =\ i\ *\ ((float)itemSpace\ /\ coinsCountInItem);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ GameObject\ go\ =\ Instantiate(CoinPrefab,\ coinPos\ +\ pos,\ Quaternion.identity);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ go.transform.SetParent(parentObject.transform);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (style\ ==\ CoinsStyle.Jump)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ -\/coinsCountInItem\ /\ 2;\ i\ <\ coinsCountInItem\ /\ 2;\ i++)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ coinPos.y\ =\ Mathf.Max(-\/1\ /\ 2f\ *\ Mathf.Pow(i,\ 2)\ +\ 3,\ coinsHeight);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ coinPos.z\ =\ i\ *\ ((float)itemSpace\ /\ coinsCountInItem);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ GameObject\ go\ =\ Instantiate(CoinPrefab,\ coinPos\ +\ pos,\ Quaternion.identity);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ go.transform.SetParent(parentObject.transform);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Unity\+Mirea\+INBO-\/15-\/20/runnermirea/\+Assets/\+Scripts/Map\+Generator.\+cs\end{DoxyCompactItemize}

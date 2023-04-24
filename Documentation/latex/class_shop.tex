@@ -1,0 +1,91 @@
+\hypertarget{class_shop}{}\doxysection{Shop Class Reference}
+\label{class_shop}\index{Shop@{Shop}}
+
+
+SHOPScript {\bfseries{The script is responsible for the logic of the purchase of something in the game}}  
+
+
+Inheritance diagram for Shop\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_shop}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_shop_a7a5171c6081d9e39163092f4f4dc0f1c}\label{class_shop_a7a5171c6081d9e39163092f4f4dc0f1c}} 
+void {\bfseries On\+Button\+Down} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_shop_a15b0643a5f56dd1c30cc35199abe2a66}\label{class_shop_a15b0643a5f56dd1c30cc35199abe2a66}} 
+string {\bfseries object\+Name}
+\item 
+\mbox{\Hypertarget{class_shop_ac5cf5a245c0f21c5c83ae3d49c53f5f5}\label{class_shop_ac5cf5a245c0f21c5c83ae3d49c53f5f5}} 
+int {\bfseries price}
+\item 
+\mbox{\Hypertarget{class_shop_a6cd2e513d4d9b8ea11998fafaa2d619d}\label{class_shop_a6cd2e513d4d9b8ea11998fafaa2d619d}} 
+int {\bfseries access}
+\item 
+\mbox{\Hypertarget{class_shop_a561d6107e8c78932b332a15276950677}\label{class_shop_a561d6107e8c78932b332a15276950677}} 
+Game\+Object {\bfseries block}
+\item 
+\mbox{\Hypertarget{class_shop_aeb75e0fb6094bcb42beebc834f17bd07}\label{class_shop_aeb75e0fb6094bcb42beebc834f17bd07}} 
+Text {\bfseries object\+Price}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+SHOPScript {\bfseries{The script is responsible for the logic of the purchase of something in the game}} 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \textcolor{keyword}{public}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_shop}{Shop}}\ :\ MonoBehaviour}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{public}\ \textcolor{keywordtype}{string}\ objectName;}
+\DoxyCodeLine{\textcolor{keyword}{public}\ \textcolor{keywordtype}{int}\ price,\ access;}
+\DoxyCodeLine{\textcolor{keyword}{public}\ GameObject\ block;}
+\DoxyCodeLine{\textcolor{keyword}{public}\ Text\ objectPrice;}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ Awake()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ AccessUpdate();}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ AccessUpdate()\ \textcolor{comment}{//ѕроверка,\ достаточно ли средств на балансе игрока и последующа€ покупка}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ access\ =\ PlayerPrefs.GetInt(objectName\ +\ \textcolor{stringliteral}{"{}Access"{}});}
+\DoxyCodeLine{\ \ \ \ objectPrice.text\ =\ price.ToString();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (access\ ==\ 1)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ block.SetActive(\textcolor{keyword}{false});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ objectPrice.gameObject.SetActive(\textcolor{keyword}{false});}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{public}\ \textcolor{keywordtype}{void}\ OnButtonDown()\ \textcolor{comment}{//логика\ по€влени€\ нового\ предмета и\ вычитани€\ денег с баланса после покупки}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ coins\ =\ PlayerPrefs.GetInt(\textcolor{stringliteral}{"{}coins"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (access\ ==\ 0)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (coins\ >=\ price)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ PlayerPrefs.SetInt(objectName\ +\ \textcolor{stringliteral}{"{}Access"{}},\ 1);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ PlayerPrefs.SetInt(\textcolor{stringliteral}{"{}coins"{}},\ coins\ -\/\ price);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ AccessUpdate();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Unity\+Mirea\+INBO-\/15-\/20/runnermirea/\+Assets/\+Scripts/Shop.\+cs\end{DoxyCompactItemize}
